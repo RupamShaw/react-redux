@@ -1,23 +1,53 @@
 
 import registerServiceWorker from './registerServiceWorker';
-import React from 'react';
+
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
-import Counter from './components/Counter';
-import counter from './reducers/counter';
+
+import React, { Component } from 'react'
+import todoApp from './reducers';
 
 const store = createStore(
-  counter,
+    todoApp,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+let nextTodoId = 0;
+
+class TodoApp extends Component {
+    render() {
+        return(
+            <div>
+                <input ref={node => {
+                this.input = node
+                }} />
+                <button onClick={ () => {
+                    store.dispatch({
+                        type: 'ADD_TODO',
+                        text: this.input.value,
+                        id: nextTodoId++ 
+                    }) ;
+                    this.input.value = '';
+                    }}>
+                   Add Todo 
+                   </button>
+                   <ul>
+                       {this.props.todos.map( todo =>
+                        <li key = {todo.id}>{todo.text}
+                         </li>   
+                        )
+                        }
+                    </ul>
+            </div>  
+        );  
+    }
+}
+
 const rootEl = document.getElementById('root');
 const render = () => {
-  ReactDOM.render(
-    <Counter
-      value={store.getState()}
-      onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
-      onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
-    />,
+  ReactDOM.render(<div>
+
+    <TodoApp  todos= {store.getState().todos}/>
+    </div>,
     rootEl
   );
 };
