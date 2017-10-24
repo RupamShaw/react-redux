@@ -7,40 +7,40 @@ import todoApp from './reducers';
 import Todo from './components/Todo'
 import TodoList from './components/TodoList'
 import Link from './components/Link'
-//import Footer from './components/Footer'
-//import AddTodo from './containers/AddTodo'
+import {Provider}  from 'react-redux'
+import VisibleTodoList from './containers/VisibleTodoList'
 const store = createStore(
-    todoApp,
+  todoApp,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
 
-class FilterLink extends Component{
-  componentDidMount(){
-   this.unsubscribe = store.subscribe(() =>
+class FilterLink extends Component {
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() =>
       this.forceUpdate()
-    );  
+    );
   }
 
-  componentWillUnMount(){
+  componentWillUnMount() {
     this.unsubscribe();
   }
 
-  render(){
+  render() {
     const props = this.props;
     const state = store.getState();
 
     return (
-      <Link active= {
-          props.filter === state.visibilityFilter
+      <Link active={
+        props.filter === state.visibilityFilter
 
-      } onClick ={ () => {
-            store.dispatch({
-              type: 'SET_VISIBILITY_FILTER',
-              filter:props.filter
-            }) 
-        }}>
-      {props.children}
+      } onClick={() => {
+        store.dispatch({
+          type: 'SET_VISIBILITY_FILTER',
+          filter: props.filter
+        })
+      }}>
+        {props.children}
       </Link>
     )
   }
@@ -51,37 +51,24 @@ const Footer = () => (
     Show:
     {" "}
     <FilterLink filter="SHOW_ALL"
-     >
+    >
       All
     </FilterLink>
     {", "}
-    <FilterLink filter="SHOW_ACTIVE" 
-  
+    <FilterLink filter="SHOW_ACTIVE"
+
     >
       Active
     </FilterLink>
     {", "}
-    <FilterLink filter="SHOW_COMPLETED" 
-  
+    <FilterLink filter="SHOW_COMPLETED"
+
     >
       Completed
     </FilterLink>
   </p>
 )
 
-
-const getVisibleTodos = (todos, filter) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos
-    case 'SHOW_COMPLETED':
-      return todos.filter(t => t.completed)
-    case 'SHOW_ACTIVE':
-      return todos.filter(t => !t.completed)
-    default:
-      throw new Error('Unknown filter: ' + filter)
-  }
-}
 const AddTodo = () => {
   let input;
   return (
@@ -92,7 +79,7 @@ const AddTodo = () => {
       <button onClick={() => {
         store.dispatch({
           type: 'ADD_TODO',
-          text:input.value,
+          text: input.value,
           id: nextTodoId++
         })
         input.value = '';
@@ -103,55 +90,24 @@ const AddTodo = () => {
   );
 }
 
-class VisibleTodoList extends Component{
-  componentDidMount(){
-    this.unsubscribe = store.subscribe(() =>
-       this.forceUpdate()
-     );  
-   }
- 
-   componentWillUnMount(){
-     this.unsubscribe();
-   }
- 
-  render(){
-    const props = this.props;
-    const state = store.getState();
-return(
-<TodoList 
-  todos={  getVisibleTodos(
-      state.todos,
-      state.visibilityFilter
-    )
-  }
-  onTodoClick ={id => {
-      store.dispatch({
-        type: 'TOGGLE_TODO',
-        id
-        }) 
-      }     
-    }
-/>
-);}
-}
 
 let nextTodoId = 0;
 
-const TodoApp = () =>(
+const TodoApp = () => (
   <div>
     <AddTodo />
-    <VisibleTodoList/>
+    <VisibleTodoList />
     <Footer />
-  </div> 
-)    
+  </div>
+)
 
 const rootEl = document.getElementById('root');
 const render = () => {
   ReactDOM.render(
-  <div>
-    <TodoApp  {...store.getState()}/>
-  </div>,
-  rootEl
+    <Provider store={store}>
+      <TodoApp />
+    </Provider>,
+    rootEl
   );
 };
 render();
