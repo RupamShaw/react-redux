@@ -9,6 +9,8 @@ import TodoList from './components/TodoList'
 import Link from './components/Link'
 import {Provider}  from 'react-redux'
 import VisibleTodoList from './containers/VisibleTodoList'
+import AddTodo from './containers/AddTodo'
+
 const store = createStore(
   todoApp,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
@@ -68,31 +70,6 @@ const Footer = () => (
     </FilterLink>
   </p>
 )
-
-const AddTodo = () => {
-  let input;
-  return (
-    <div>
-      <input ref={node => {
-        input = node
-      }} />
-      <button onClick={() => {
-        store.dispatch({
-          type: 'ADD_TODO',
-          text: input.value,
-          id: nextTodoId++
-        })
-        input.value = '';
-      }}>
-        Add Todo
-      </button>
-    </div>
-  );
-}
-
-
-let nextTodoId = 0;
-
 const TodoApp = () => (
   <div>
     <AddTodo />
