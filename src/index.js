@@ -8,7 +8,7 @@ import Todo from './components/Todo'
 import TodoList from './components/TodoList'
 import Link from './components/Link'
 //import Footer from './components/Footer'
-import AddTodo from './containers/AddTodo'
+//import AddTodo from './containers/AddTodo'
 const store = createStore(
     todoApp,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
@@ -82,37 +82,65 @@ const getVisibleTodos = (todos, filter) => {
       throw new Error('Unknown filter: ' + filter)
   }
 }
+const AddTodo = () => {
+  let input;
+  return (
+    <div>
+      <input ref={node => {
+        input = node
+      }} />
+      <button onClick={() => {
+        store.dispatch({
+          type: 'ADD_TODO',
+          text:input.value,
+          id: nextTodoId++
+        })
+        input.value = '';
+      }}>
+        Add Todo
+      </button>
+    </div>
+  );
+}
+
+class VisibleTodoList extends Component{
+  componentDidMount(){
+    this.unsubscribe = store.subscribe(() =>
+       this.forceUpdate()
+     );  
+   }
+ 
+   componentWillUnMount(){
+     this.unsubscribe();
+   }
+ 
+  render(){
+    const props = this.props;
+    const state = store.getState();
+return(
+<TodoList 
+  todos={  getVisibleTodos(
+      state.todos,
+      state.visibilityFilter
+    )
+  }
+  onTodoClick ={id => {
+      store.dispatch({
+        type: 'TOGGLE_TODO',
+        id
+        }) 
+      }     
+    }
+/>
+);}
+}
 
 let nextTodoId = 0;
 
-const TodoApp = ({
-  todos,
-  visibilityFilter
-}) =>(
+const TodoApp = () =>(
   <div>
-    <AddTodo onAddClick={text =>
-      store.dispatch({
-                  type: 'ADD_TODO',
-                  text,
-                  id: nextTodoId++ 
-            }) 
-    }/>
-    
-    <TodoList 
-      todos={  getVisibleTodos(
-          todos,
-          visibilityFilter
-        )
-      }
-      onTodoClick ={id => {
-          store.dispatch({
-            type: 'TOGGLE_TODO',
-            id
-            }) 
-          }     
-        }
-    />
-    
+    <AddTodo />
+    <VisibleTodoList/>
     <Footer />
   </div> 
 )    
