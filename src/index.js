@@ -6,13 +6,69 @@ import React, { Component } from 'react'
 import todoApp from './reducers';
 import Todo from './components/Todo'
 import TodoList from './components/TodoList'
-import FilterLink from './containers/FilterLink'
-import Footer from './components/Footer'
+import Link from './components/Link'
+//import Footer from './components/Footer'
 import AddTodo from './containers/AddTodo'
 const store = createStore(
     todoApp,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+
+
+class FilterLink extends Component{
+  componentDidMount(){
+   this.unsubscribe = store.subscribe(() =>
+      this.forceUpdate()
+    );  
+  }
+
+  componentWillUnMount(){
+    this.unsubscribe();
+  }
+
+  render(){
+    const props = this.props;
+    const state = store.getState();
+
+    return (
+      <Link active= {
+          props.filter === state.visibilityFilter
+
+      } onClick ={ () => {
+            store.dispatch({
+              type: 'SET_VISIBILITY_FILTER',
+              filter:props.filter
+            }) 
+        }}>
+      {props.children}
+      </Link>
+    )
+  }
+}
+
+const Footer = () => (
+  <p>
+    Show:
+    {" "}
+    <FilterLink filter="SHOW_ALL"
+     >
+      All
+    </FilterLink>
+    {", "}
+    <FilterLink filter="SHOW_ACTIVE" 
+  
+    >
+      Active
+    </FilterLink>
+    {", "}
+    <FilterLink filter="SHOW_COMPLETED" 
+  
+    >
+      Completed
+    </FilterLink>
+  </p>
+)
+
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -57,17 +113,7 @@ const TodoApp = ({
         }
     />
     
-    <Footer 
-        visibilityFilter ={visibilityFilter}
-        onFilterClick ={filter => {
-            store.dispatch({
-              type: 'SET_VISIBILITY_FILTER',
-              filter
-            }) 
-          }
-
-        }
-    />
+    <Footer />
   </div> 
 )    
 
