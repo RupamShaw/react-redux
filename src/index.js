@@ -3,20 +3,18 @@ import registerServiceWorker from './registerServiceWorker';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import React, { Component } from 'react'
-import todoApp from './reducers';
-import Todo from './components/Todo'
-import TodoList from './components/TodoList'
-import Link from './components/Link'
+//import App from './reducers';
+import store from './store.js'
 import Footer from './components/Footer'
-import {Provider}  from 'react-redux'
+import { Provider } from 'react-redux'
 import VisibleTodoList from './containers/VisibleTodoList'
 import AddTodo from './containers/AddTodo'
+import BankAppContainer from './containers/bank/BankAppContainer'
 
-
-const store = createStore(
-  todoApp,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+// const store = createStore(
+//   App,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+// );
 
 
 const TodoApp = () => (
@@ -24,6 +22,8 @@ const TodoApp = () => (
     <AddTodo />
     <VisibleTodoList />
     <Footer />
+    <BankAppContainer />
+
   </div>
 )
 
