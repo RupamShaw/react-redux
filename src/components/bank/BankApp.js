@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+import './BankApp.css'
 class BankApp extends Component {
     handleDeposit() {
         this.props.onDeposit(this.refs.amount.value);
@@ -14,7 +15,7 @@ class BankApp extends Component {
         return (
             <div>
                 <header>
-                    <img src="//www.pro-react.com/logos/redux-bank.svg" width="150" />Redux Bank
+                    <img src="//www.pro-react.com/logos/redux-bank.svg" width="110" />Redux Bank
     </header>
                 <h1>Your balance is ${(this.props.balance)}</h1>
                 <div className="atm">
