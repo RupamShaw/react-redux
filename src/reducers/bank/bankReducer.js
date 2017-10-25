@@ -2,8 +2,8 @@ import constants from '../../actions/bank/constants';
 const initialState = {
     balance: 0
 }
-const bankReducer = (state =initialState.balance, action) => {
-    console.log(action ); //Temporarily logging all actions
+const bankReducer = (state = initialState.balance, action) => {
+    console.log(action); //Temporarily logging all actions
     switch (action.type) {
         case constants.CREATE_ACCOUNT:
             return initialState;

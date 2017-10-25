@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import { render } from 'react-dom';
+import React, { Component } from 'react';
 import store from '../../store.js'
 import constants from '../../actions/bank/constants';
 import BankApp from '../../components/bank/BankApp';
