@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import VisibleTodoList from './containers/VisibleTodoList'
 import AddTodo from './containers/AddTodo'
 import BankAppContainer from './containers/bank/BankAppContainer'
-
+import CounterApp from './containers/Counter'
 
 const TodoApp = () => (
   <div>
@@ -17,6 +17,7 @@ const TodoApp = () => (
     <VisibleTodoList />
     <Footer />
     <BankAppContainer />
+    <CounterApp/>
 
   </div>
 )
