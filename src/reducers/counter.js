@@ -1,5 +1,5 @@
 const counter = (state =0, action) => {
-    console.log('payload****'+action.payload)
+   // console.log('payload****'+action.payload)
     switch (action.type){
         case 'INCREMENT' : 
             return state + action.payload

@@ -15,7 +15,7 @@ class BankApp extends Component {
         return (
             <div>
                 <header>
-                    <img src="//www.pro-react.com/logos/redux-bank.svg" width="110" />Redux Bank
+                    <img src="//www.pro-react.com/logos/redux-bank.svg" width="110" alt='bank' />Redux Bank
     </header>
                 <h1>Your balance is ${(this.props.balance)}</h1>
                 <div className="atm">

@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import VisibleTodoList from './containers/VisibleTodoList'
 import AddTodo from './containers/AddTodo'
 import BankAppContainer from './containers/bank/BankAppContainer'
-import CounterApp from './containers/Counter'
+import CounterAppContainer from './containers/CounterAppContainer'
 
 const TodoApp = () => (
   <div>
@@ -17,20 +17,27 @@ const TodoApp = () => (
     <VisibleTodoList />
     <Footer />
     <BankAppContainer />
-    <CounterApp/>
+    <CounterAppContainer/>
 
   </div>
 )
 
 const rootEl = document.getElementById('root');
 const render = () => {
+
   ReactDOM.render(
     <Provider store={store}>
       <TodoApp />
     </Provider>,
     rootEl
   );
+  console.log('store changed',store.getState())
+  //store.dispatch({ type: 'SET_NAME',payload: 'hahhaha' })
 };
 render();
 store.subscribe(render);
+store.dispatch({type: "SET_NAME", payload: "Will"})
+store.dispatch({type: "SET_AGE", payload: 35})
+store.dispatch({type: "SET_AGE", payload: 34})
+store.dispatch({type: "ADD_TWEET", payload: "OMG LIKE LOL"})
 registerServiceWorker();

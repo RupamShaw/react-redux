@@ -11,21 +11,7 @@ import React, { Component } from 'react';
 // );}
 
 
-class CounterApp extends Component {
-    constructor(...args) {
-        super(...args);
-        //store.dispatch({ type: 'CREATE_ACCOUNT' })
-        //this.state =  store.getState()
-    
-    }
-    componentDidMount() {
-        // this.unsubscribe = store.subscribe(() =>
-        //     this.setState({ state: store.getState() })
-        // );
-    }
-    componentWillUnmount() {
-        //this.unsubscribe();
-    }
+class CounterAppContainer extends Component {
     render() {
 
         return (
@@ -37,4 +23,4 @@ class CounterApp extends Component {
         )
     }
 }
-export default CounterApp
+export default CounterAppContainer
