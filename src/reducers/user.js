@@ -1,7 +1,7 @@
 const user = (state={}, action) => {
     switch(action.type) {
       case "SET_NAME": {
-        console.log(action.payload)
+       // console.log(action.payload)
         return {...state, name: action.payload};
         
       }
@@ -9,10 +9,13 @@ const user = (state={}, action) => {
         return {...state, age: action.payload};
        
       }
+      case "E":{
+        throw new Error("purposely throwing error while sending dispatch as E")
+      }
       default:
       return state
     }
-    //return state;
+   
   }
 
   export default user

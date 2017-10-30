@@ -2,8 +2,8 @@ import constants from '../../actions/bank/constants';
 const initialState = {
     balance: 0
 }
-const bankReducer = (state = initialState.balance, action) => {
-    console.log(action); //Temporarily logging all actions
+const bankReducer = (state = {balance:initialState.balance}, action) => {
+  //  console.log('bankreducer',action,state.balance); //Temporarily logging all actions
     switch (action.type) {
 
         case constants.DEPOSIT_INTO_ACCOUNT:

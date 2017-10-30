@@ -19,7 +19,7 @@ class BankApp extends Component {
     </header>
                 <h1>Your balance is ${(this.props.balance)}</h1>
                 <div className="atm">
-                    <input type="text" placeholder="Enter Ammount" ref="amount" />
+                    <input type="text" placeholder="Enter Amount" ref="amount" />
                     <button onClick={this.handleWithdraw.bind(this)}>Withdraw</button>
                     <button onClick={this.handleDeposit.bind(this)}>Deposit</button>
                 </div>
