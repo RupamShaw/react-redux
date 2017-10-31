@@ -5,14 +5,16 @@ import bankReducer from './bank/bankReducer'
 import counter from './counter'
 import user from './user'
 import tweets from './tweets'
-
+import restUser from './restUser'
 const App = combineReducers({
   todos,
   bankReducer,
   visibilityFilter,
+  restUser,
   counter,
   user,
   tweets
+  
 })
 
 export default App

@@ -10,6 +10,7 @@ import VisibleTodoList from './containers/VisibleTodoList'
 import AddTodo from './containers/AddTodo'
 import BankAppContainer from './containers/bank/BankAppContainer'
 import CounterAppContainer from './containers/CounterAppContainer'
+import RestUsersContainer from './containers/RestUsersContainer'
 
 const TodoApp = () => (
   <div>
@@ -18,7 +19,7 @@ const TodoApp = () => (
     <Footer />
     <BankAppContainer />
     <CounterAppContainer/>
-
+    <RestUsersContainer />
   </div>
 )
 
@@ -36,9 +37,17 @@ const render = () => {
 };
 render();
 store.subscribe(render);
-store.dispatch({type: "SET_NAME", payload: "Will"})
-store.dispatch({type: "SET_AGE", payload: 35})
-store.dispatch({type: "SET_AGE", payload: 34})
-store.dispatch({type: "ADD_TWEET", payload: "OMG LIKE LOL"})
-store.dispatch({type: "E", payload: "OMG LIKE LOL"})
+store.dispatch((dispatch) => {
+  dispatch({type: "SET_NAME", payload: "Will"})
+  dispatch({type: "SET_AGE", payload: 35})
+  dispatch({type: "SET_AGE", payload: 34})
+  dispatch({type: "ADD_TWEET", payload: "OMG LIKE LOL"})
+  dispatch({type: "E", payload: "OMG LIKE LOL"})
+
+})
+// store.dispatch({type: "SET_NAME", payload: "Will"})
+// store.dispatch({type: "SET_AGE", payload: 35})
+// store.dispatch({type: "SET_AGE", payload: 34})
+// store.dispatch({type: "ADD_TWEET", payload: "OMG LIKE LOL"})
+// store.dispatch({type: "E", payload: "OMG LIKE LOL"})
 registerServiceWorker();
